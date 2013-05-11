@@ -1,16 +1,20 @@
-import numpy as np
-
 # sklearn
-from sklearn.linear_model import LinearRegression, SGDClassifier
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, ExtraTreesClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, ExtraTreesRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.svm import SVR
 
 class Classifier(object):
 
     @classmethod
     def preds(self, data, targets, cv):
-        model = LinearRegression()
+        #model = LinearRegression()
+        #model = SVR()
+        #model = KNeighborsRegressor(weights='distance', n_neighbors=5, p=1, leaf_size=30) # score 0.75
+        #model = RandomForestRegressor() # score 0.390
+        model = ExtraTreesRegressor(compute_importances=True, n_estimators=40) # score 0.37 #TODO best without scaling
+        #model = GradientBoostingRegressor() # 0.628
+        print model
         model.fit(data, targets)
         preds = [model.predict(c) for c in cv]
         #models, weights = self.train(data, targets, cv)
