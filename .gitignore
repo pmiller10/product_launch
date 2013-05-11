@@ -36,3 +36,5 @@ nosetests.xml
 
 # Submissions
 /data/submission1.csv
+/data/submission2.csv
+/data/submission3.csv

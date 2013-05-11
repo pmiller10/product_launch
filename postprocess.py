@@ -12,7 +12,7 @@ class ProductPostprocess():
 
     @classmethod
     def submit(self, preds, ids):
-        f = file("data/submission1.csv", 'w+')
+        f = file("data/submission3.csv", 'w+')
         header = "Product_Launch_Id,Weeks_Since_Launch,Units_that_sold_that_week\n"
         f.write(header)
 
