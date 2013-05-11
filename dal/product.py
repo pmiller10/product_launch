@@ -36,13 +36,14 @@ class Product(object):
         return products, targets
 
     @classmethod
-    def data_like_test(self, data_file=train_file):
+    def data_like_test(self, data_file=train_file, ids=False):
         f = file(data_file, 'r')
         lines = f.readlines()[1:] # remove header
         lines = [re.sub("\r\n", '', line).split(',') for line in lines]
         targets = []
         products = []
         product = []
+        product_ids = []
         test_weeks = range(14,27)
         week = 0
         for i,line in enumerate(lines):
@@ -64,11 +65,16 @@ class Product(object):
                 product.append(units_per_store)
                 product.append(percent_repeat) # this only gives a small boost in ExtraTrees
             elif week == 26:
+                if ids:
+                    product_id = line[0]
+                    product_ids.append(product_id)
                 targets.append(float(total_sold))
-
                 p = [float(x) for x in product]
                 products.append(p)
                 product = []
                 week = 0
 
-        return products, targets
+        if ids:
+            return products, targets, product_ids
+        else:
+            return products, targets
