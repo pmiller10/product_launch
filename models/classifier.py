@@ -5,14 +5,33 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.svm import SVR
 
 from net import Net
-from lin_reg import MyLinearRegression
+from lin_reg import MyLinearRegression, MyExtra, MyNet, MySVR, MyNeigh
 
 class Classifier(object):
 
     @classmethod
     def preds(self, data, targets, cv, stores):
+        models = []
         #model = LinearRegression()
-        model = MyLinearRegression()
+        #model = MyLinearRegression()
+        #model.fit(data, targets)
+        #models.append(model)
+
+        model = MyNet()
+        model.fit(data, targets)
+        models.append(model)
+
+        model = MyExtra()
+        model.fit(data, targets)
+        models.append(model)
+
+        model = MySVR()
+        model.fit(data, targets)
+        models.append(model)
+
+        model = MyNeigh()
+        model.fit(data, targets)
+        models.append(model)
         #model = SVR()
         #model = KNeighborsRegressor(weights='distance', n_neighbors=5, p=1, leaf_size=30) # score 0.75
         #model = RandomForestRegressor() # score 0.390
@@ -20,18 +39,21 @@ class Classifier(object):
         #model = GradientBoostingRegressor() # 0.628
         #model = Net(data, targets, epochs=100)
         
-        print model
-        model.fit(data, targets)
 
         #preds = [model.predict(c) for c in cv]
         #models, weights = self.train(data, targets, cv)
         #preds = self.vote(models, cv, weights)
-        preds = []
+        predictions = []
         for i,c in enumerate(cv):
             s = stores[i]
-            p = model.predict(c, s)
-            preds.append(p)
-        return preds
+            preds = 0.
+            for m in models:
+                p = m.predict(c, s)[0]
+                #print p, m
+                preds += p
+            merged = preds/len(models)
+            predictions.append(merged)
+        return predictions
 
     @classmethod
     def train(self, data, targets, cv):

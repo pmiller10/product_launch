@@ -8,10 +8,9 @@ import time
 # preprocessing
 _, total_sold = Product.data_like_test()
 data, us26, week26_stores = Product.data_for_units_per_store()
-print data[0]
 matrix = ProductPreprocess.to_matrix(data)
 matrix = ProductPreprocess.scale(matrix)
-#matrix = ProductPreprocess.polynomial(matrix, 2)
+matrix = ProductPreprocess.polynomial(matrix, 2)
 data = matrix.tolist()
 
 
@@ -21,8 +20,8 @@ train, cv = data[:1500], data[1500:]
 train_total_sold, cv_total_sold = total_sold[:1500], total_sold[1500:]
 train_week26_stores, cv_week26_stores = week26_stores[:1500], week26_stores[1500:]
 train_us26 = us26[:1500]
-print us26[0:10]
-print data[0]
+#print us26[0:10]
+#print data[0]
 #print len(train[0])
 #print len(train[10])
 #print len(train[100])

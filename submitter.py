@@ -13,7 +13,7 @@ test_data, _, week26_stores, product_ids = Product.data_for_units_per_store(data
 
 matrix = ProductPreprocess.to_matrix(train_data)
 matrix = ProductPreprocess.scale(matrix)
-#matrix = ProductPreprocess.polynomial(matrix, 2)
+matrix = ProductPreprocess.polynomial(matrix, 2)
 data = matrix.tolist()
 
 

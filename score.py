@@ -8,6 +8,6 @@ def rmsle(preds, targets):
     total = 0.
     for i,p in enumerate(preds):
         t = targets[i]
-        total += (math.log(p + 1) - math.log(t + 1)) ** 2
+        total += (math.log(p[0] + 1) - math.log(t + 1)) ** 2
     avg = total/len(preds)
     return math.sqrt(avg)

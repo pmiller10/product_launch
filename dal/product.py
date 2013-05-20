@@ -97,6 +97,7 @@ class Product(object):
         wk26_stores = 0
         us1 = 0
         us6 = 0
+        us9 = 0
         us13 = 0
         for i,line in enumerate(lines):
             week += 1
@@ -109,6 +110,10 @@ class Product(object):
                 wk6_stores = float(line[3])
                 total_sold = float(line[4])
                 us6 = total_sold/wk6_stores
+            elif week == 9:
+                wk9_stores = float(line[3])
+                total_sold = float(line[4])
+                us9 = total_sold/wk9_stores
             elif week == 13:
                 wk13_stores = float(line[3])
                 total_sold = float(line[4])
@@ -124,7 +129,8 @@ class Product(object):
                 delta_stores = wk26_stores/wk13_stores
                 delta_us_1_13 = us1/us13
                 delta_us_6_13 = us6/us13
-                product = [delta_us_1_13, delta_us_6_13, us13, delta_stores] 
+                delta_us_9_13 = us9/us13
+                product = [delta_us_1_13, delta_us_6_13, delta_us_9_13 , us13, delta_stores] 
                 products.append(product)
                 stores.append(wk26_stores)
 
